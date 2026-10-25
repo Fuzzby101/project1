@@ -1,301 +1,302 @@
+
 [
   {
     "name": "10 Minutes Till Dawn",
-    "image": "splash.png",
+    "image": "10mins.PNG",
     "url": "https://fuzzby101.github.io/1/cl10minutestildawn",
     "new": true
   },
   {
     "name": "1v1.LOL",
-    "image": "splash.png",
+    "image": "1v1lol.png",
     "url": "https://fuzzby101.github.io/2/cl1v1lol",
     "new": true
   },
   {
     "name": "2 3 4 Player Game",
-    "image": "splash.png",
+    "image": "234playergame.png",
     "url": "https://fuzzby101.github.io/3/cl234playergame",
     "new": true
   },
   {
     "name": "99 Nights in the Forest",
-    "image": "splash.png",
+    "image": "99nitf.png",
     "url": "https://fuzzby101.github.io/4/cl99nightsitf",
     "new": true
   },
   {
     "name": "Adventure Capitalist",
-    "image": "splash.png",
+    "image": "AdventureCapitalist.png",
     "url": "https://fuzzby101.github.io/5/clAdventureCapatalist",
     "new": true
   },
   {
-    "name": "Agario Lite",
-    "image": "splash.png",
+    "name": "Agar.io Lite",
+    "image": "Agar.io.png",
     "url": "https://fuzzby101.github.io/6/clagariolite",
     "new": true
   },
   {
     "name": "Arthur's Nightmare",
-    "image": "splash.png",
+    "image": "ArthursNightmare.png",
     "url": "https://fuzzby101.github.io/7/clarthursnightmare",
     "new": true
   },
   {
     "name": "Stranger Rope Police",
-    "image": "splash.png",
+    "image": "AmazingSRP.png",
     "url": "https://fuzzby101.github.io/8/clstreangeropepolice",
     "new": true
   },
   {
     "name": "Among Us",
-    "image": "splash.png",
+    "image": "AmongUs.png",
     "url": "https://fuzzby101.github.io/9/clamongus",
     "new": true
   },
   {
     "name": "Angry Birds",
-    "image": "splash.png",
+    "image": "AngryBirds.png",
     "url": "https://fuzzby101.github.io/10/clangrybirds",
     "new": true
   },
   {
     "name": "Aquapark.io",
-    "image": "splash.png",
+    "image": "Aquapark.io.png",
     "url": "https://fuzzby101.github.io/11/claquaparkio",
     "new": true
   },
   {
     "name": "Backrooms",
-    "image": "splash.png",
+    "image": "backrooms.png",
     "url": "https://fuzzby101.github.io/12/clbackrooms",
     "new": true
   },
   {
     "name": "Bad Parenting",
-    "image": "splash.png",
+    "image": "badparenting.png",
     "url": "https://fuzzby101.github.io/13/clbadparenting",
     "new": true
   },
   {
     "name": "Basket Bros",
-    "image": "splash.png",
+    "image": "basketbros.png",
     "url": "https://fuzzby101.github.io/14/clbasketbros",
     "new": true
   },
   {
     "name": "Baldi's Basics",
-    "image": "splash.png",
+    "image": "baldisbasics.png",
     "url": "https://fuzzby101.github.io/15/clbaldisbasics",
     "new": true
   },
   {
     "name": "Bart Blast",
-    "image": "splash.png",
+    "image": "bartblast.png",
     "url": "https://fuzzby101.github.io/16/clbartblast",
     "new": true
   },
   {
     "name": "Battle Karts",
-    "image": "splash.png",
+    "image": "battlekarts.png",
     "url": "https://fuzzby101.github.io/17/clbattlekarts",
     "new": true
   },
   {
     "name": "Beach Boxing Simulator",
-    "image": "splash.png",
+    "image": "Bowmasters.png",
     "url": "https://fuzzby101.github.io/18/clbeachboxingsim",
     "new": true
   },
   {
     "name": "Bearsus",
-    "image": "splash.png",
+    "image": "Bearsus.png",
     "url": "https://fuzzby101.github.io/19/clbearsus",
     "new": true
   },
   {
     "name": "BitLife",
-    "image": "splash.png",
+    "image": "Bitlife.png",
     "url": "https://fuzzby101.github.io/20/clbitlife",
     "new": true
   },
   {
-    "name": "Blood Money",
-    "image": "splash.png",
+    "name": "Bloodmoney",
+    "image": "Bloodmoney.png",
     "url": "https://fuzzby101.github.io/21/clbloodmoney",
     "new": true
   },
   {
-    "name": "Bow Master",
-    "image": "splash.png",
+    "name": "Bowmasters",
+    "image": "Bowmasters.png",
     "url": "https://fuzzby101.github.io/22/clbowmaster",
     "new": true
   },
   {
     "name": "BuildNow GG",
-    "image": "splash.png",
+    "image": "Buildnow.png",
     "url": "https://fuzzby101.github.io/23/clbuildnowgg",
     "new": true
   },
   {
     "name": "Call of Battle",
-    "image": "splash.png",
+    "image": "CallOfWar.png",
     "url": "https://fuzzby101.github.io/24/clcallofbattle",
     "new": true
   },
   {
     "name": "Chess Classic",
-    "image": "splash.png",
+    "image": "chess.png",
     "url": "https://fuzzby101.github.io/25/clchessclassic",
     "new": true
   },
   {
     "name": "Class of '09",
-    "image": "splash.png",
+    "image": "dokidoki.png",
     "url": "https://fuzzby101.github.io/26/clclassof09",
     "new": true
   },
   {
     "name": "Cookie Clicker",
-    "image": "splash.png",
+    "image": "Cookieclicker.png",
     "url": "https://fuzzby101.github.io/27/clcookieclicker",
     "new": true
   },
   {
     "name": "Crazy Cattle 3D",
-    "image": "splash.png",
+    "image": "Crazycattle3d.png",
     "url": "https://fuzzby101.github.io/28/clcrazycattle3d",
     "new": true
   },
   {
-    "name": "CS 1.6",
-    "image": "splash.png",
+    "name": "Counter-Strike 1.6",
+    "image": "cs1.6.png",
     "url": "https://fuzzby101.github.io/29/clcs1.6%20(1)",
     "new": true
   },
   {
     "name": "Cut the Rope",
-    "image": "splash.png",
+    "image": "CutTheRope.png",
     "url": "https://fuzzby101.github.io/30/clcuttherope",
     "new": true
   },
   {
     "name": "Deltarune",
-    "image": "splash.png",
+    "image": "Deltarune.png",
     "url": "https://fuzzby101.github.io/31/cldeltarune",
     "new": true
   },
   {
     "name": "Doki Doki Literature Club",
-    "image": "splash.png",
+    "image": "dokidoki.png",
     "url": "https://fuzzby101.github.io/32/cldokidokiliteratureclub",
     "new": true
   },
   {
-    "name": "A6",
-    "image": "splash.png",
+    "name": "DTA 6",
+    "image": "Dta6.png",
     "url": "https://fuzzby101.github.io/33/dta6",
     "new": true
   },
   {
     "name": "Escape School Duel",
-    "image": "splash.png",
+    "image": "Escapeschoolduel.png",
     "url": "https://fuzzby101.github.io/34/clescapeschoolduel",
     "new": true
   },
   {
     "name": "FNAF",
-    "image": "splash.png",
+    "image": "FNAF.png",
     "url": "https://fuzzby101.github.io/35/clFNAF",
     "new": true
   },
   {
     "name": "FNAF 2",
-    "image": "splash.png",
+    "image": "FNAF2.png",
     "url": "https://fuzzby101.github.io/36/clFNAF2",
     "new": true
   },
   {
     "name": "FNAF 3",
-    "image": "splash.png",
+    "image": "FNAF3.png",
     "url": "https://fuzzby101.github.io/37/clFNAF3",
     "new": true
   },
   {
     "name": "FNAF 4",
-    "image": "splash.png",
+    "image": "FNAF4.png",
     "url": "https://fuzzby101.github.io/38/clFNAF4",
     "new": true
   },
   {
     "name": "FNAF Pizzeria Simulator",
-    "image": "splash.png",
+    "image": "FNAFPS.png",
     "url": "https://fuzzby101.github.io/39/clfnafps",
     "new": true
   },
   {
-    "name": "FortZone",
-    "image": "splash.png",
+    "name": "Fortzone",
+    "image": "Fortzone.png",
     "url": "https://fuzzby101.github.io/40/clfortzone",
     "new": true
   },
   {
     "name": "Geometry Dash Lite",
-    "image": "splash.png",
+    "image": "gd.png",
     "url": "https://fuzzby101.github.io/41/clgdlite",
     "new": true
   },
   {
     "name": "Geometry Dash SubZero",
-    "image": "splash.png",
+    "image": "gdsubzero.png",
     "url": "https://fuzzby101.github.io/42/clgdsubzero",
     "new": true
   },
   {
     "name": "Geometry Dash Wave",
-    "image": "splash.png",
+    "image": "gdwave.png",
     "url": "https://fuzzby101.github.io/43/clGeometryDashWave",
     "new": true
   },
   {
     "name": "GTA 3",
-    "image": "splash.png",
+    "image": "gta3.png",
     "url": "https://fuzzby101.github.io/44/clgta3",
     "new": true
   },
   {
     "name": "Granny",
-    "image": "splash.png",
+    "image": "granny.png",
     "url": "https://fuzzby101.github.io/45/clgrannyy",
     "new": true
   },
   {
     "name": "Grow a Garden",
-    "image": "splash.png",
+    "image": "growagarden.png",
     "url": "https://fuzzby101.github.io/46/clgrowagarden",
     "new": true
   },
   {
-    "name": "Helios Offline",
-    "image": "splash.png",
+    "name": "Helios OS",
+    "image": "HeliosOS.png",
     "url": "https://fuzzby101.github.io/47/Helios-Offline%20(1)",
     "new": true
   },
   {
     "name": "Soundboard",
-    "image": "splash.png",
+    "image": "soundboard.png",
     "url": "https://fuzzby101.github.io/48/clsoundboard",
     "new": true
   },
   {
     "name": "AI",
-    "image": "splash.png",
+    "image": "ai.png",
     "url": "https://fuzzby101.github.io/49/clai",
     "new": true
   },
   {
     "name": "Nautilus OS",
-    "image": "splash.png",
+    "image": "NautilusOS.png",
     "url": "https://fuzzby101.github.io/50/clNautilusOS",
     "new": true
   }
