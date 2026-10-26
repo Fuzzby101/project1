@@ -1,5 +1,5 @@
 var subtext = "v1";
-
+ 
 
 
 let gamesData = [];
@@ -13,7 +13,7 @@ function displayFilteredGames(filteredGames) {
     gameDiv.classList.add("game");
 
     const gameImage = document.createElement("img");
-    gameImage.src = `${game.url}/${game.image}`;
+    gameImage.src = `./${game.image}`;
     gameImage.alt = game.name;
 
 gameImage.onclick = () => {
