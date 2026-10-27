@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Game Hub | Leaderboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef0f6; --surface:#fff; --ink:#161a2e; --muted:#6a7090; --line:#dde0ec;
+  --accent:#2f4bff; --accent-ink:#fff; --xp:#ffb400; --me:#e8ecff; --ok:#12805c;
+  --head:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+  --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#12142a; --surface:#1b1e3a; --ink:#eef0ff; --muted:#9298c0; --line:#2c3055;
+    --accent:#7c8dff; --accent-ink:#10132c; --me:#262b57; --ok:#4cd6a0}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--body)}
+.wrap{max-width:980px;margin:0 auto;padding:32px 16px 64px;display:grid;gap:24px}
+@media(min-width:820px){.wrap{grid-template-columns:340px 1fr;align-items:start}}
+h2,h3{font-family:var(--head);margin:0;line-height:1.1}
+h3{font-size:1.05rem;margin:22px 0 10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.lvl{font-family:var(--head);font-weight:800;font-size:4rem;line-height:1;color:var(--accent)}
+.lvl small{font-size:1rem;font-weight:600;color:var(--muted);margin-left:6px}
+.name-row{display:flex;gap:8px;margin-bottom:16px}
+input{flex:1;min-width:0;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 12px}
+button:hover:not(:disabled){border-color:var(--accent)}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+button:disabled{opacity:.5;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--xp);outline-offset:2px}
+.bar{height:12px;background:var(--bg);border-radius:99px;overflow:hidden;margin:14px 0 6px}
+.bar i{display:block;height:100%;background:var(--xp);border-radius:99px;transition:width .5s ease}
+.sub{color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between}
+#checkin{width:100%;display:flex;justify-content:space-between;margin-top:18px}
+#checkin b{color:var(--ok)}
+.games{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.games button{text-align:left;padding:12px}
+.games small{display:block;color:var(--muted)}
+.tabs{display:flex;gap:6px;margin:14px 0}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+ol{list-style:none;margin:0;padding:0}
+li.row{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center;padding:10px 8px;border-bottom:1px solid var(--line);border-radius:8px}
+li.row:last-child{border-bottom:0}
+li.me{background:var(--me)}
+.rank{font-family:var(--head);font-weight:800;font-size:1.2rem;text-align:center;color:var(--muted)}
+.top1 .rank{color:var(--xp)}
+.who{min-width:0}
+.who strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.who span{font-size:.85rem;color:var(--muted)}
+.pts{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.pts span{display:block;font-size:.8rem;font-weight:400;color:var(--muted)}
+.note{color:var(--muted);font-size:.85rem;margin:12px 0 0}
+#play{position:fixed;inset:0;background:var(--bg);display:none;flex-direction:column;z-index:10}
+#play.open{display:flex}
+#play header{display:flex;gap:12px;align-items:center;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
+#play header strong{flex:1;font-family:var(--head)}
+#play iframe{flex:1;border:0;width:100%}
+#play .demo{flex:1;display:grid;place-items:center;color:var(--muted);text-align:center;padding:24px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-weight:600;transition:.25s;pointer-events:none;z-index:20}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#auth{position:fixed;inset:0;background:rgba(10,12,30,.6);display:none;place-items:center;padding:16px;z-index:30}
+#auth.open{display:grid}
+#auth .card{width:100%;max-width:380px;display:grid;gap:10px}
+#auth .note{margin:0}
+.auth-btns{display:flex;gap:8px}.auth-btns button{flex:1}
+#aErr{color:#d6336c;margin:0;min-height:1.3em;font-size:.9rem}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+   body{background:transparent}
+   body::before{content:'';position:fixed;inset:0;z-index:-1;background:var(--bg) url('background.gif') center/cover no-repeat}</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="card" aria-label="Your progress">
+    <div class="name-row" id="nameRow">
+      <input id="name" maxlength="20" placeholder="Pick a display name" aria-label="Display name">
+      <button id="save" class="primary">Save</button>
+    </div>
+    <div class="name-row" id="acct" style="display:none;justify-content:space-between;align-items:center">
+      <span>Signed in as <strong id="acctName"></strong></span><button id="logout">Log out</button>
+    </div>
+    <div class="lvl"><span id="lvl">1</span><small>level</small></div>
+    <div class="bar" role="progressbar" aria-label="XP to next level" aria-valuemin="0" aria-valuemax="100"><i id="fill"></i></div>
+    <div class="sub"><span id="xpText"></span><span id="streak"></span></div>
+    <button id="checkin"><span>Daily check-in</span><b id="ciXp"></b></button>
+    <h3>Games</h3>
+    <div class="games" id="games"></div>
+    <p class="note">Earn 2 XP per minute played, 25 XP the first time you try a game, and a daily check-in bonus that grows with your streak. Max 300 XP a day. Keep a daily streak going through Sunday and you start the new week with bonus XP (10 per streak day, up to 100).</p>
+  </section>
+
+  <section class="card" aria-label="Leaderboard">
+    <h2>Leaderboard</h2>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-r="week">This week</button>
+      <button role="tab" aria-selected="false" data-r="all">All time</button>
+    </div>
+    <ol id="board"></ol>
+    <p class="note" id="mode"></p>
+  </section>
+</main>
+
+<div id="play" role="dialog" aria-modal="true" aria-label="Playing a game">
+  <header><strong id="pTitle"></strong><span id="pXp"></span><button id="pClose" class="primary">Close game</button></header>
+  <div id="pBody" style="flex:1;display:flex"></div>
+</div>
+<div id="auth" role="dialog" aria-modal="true" aria-labelledby="aTitle">
+  <div class="card">
+    <h2 id="aTitle">Log in to play</h2>
+    <p class="note">Pick a username and a 4-6 digit PIN. Use the same ones on any device to get your XP back. Don't use a PIN you use anywhere important.</p>
+    <input id="aName" maxlength="16" autocomplete="username" placeholder="Username (letters, numbers, _)" aria-label="Username">
+    <input id="aPin" type="password" inputmode="numeric" maxlength="6" autocomplete="current-password" placeholder="PIN (4-6 digits)" aria-label="PIN">
+    <div class="auth-btns"><button id="aLogin" class="primary">Log in</button><button id="aSignup">Sign up</button></div>
+    <p id="aErr" role="alert"></p>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ================= CONFIG ================= */
+const CONFIG = {
+  SHEET_URL: '',   // your Apps Script web app URL ending in /exec (leave blank for local demo mode)
+};
+const GAMES = [        // url = the page or path that runs the game (opens inside the hub)
+  { id:'snake',   name:'Snake',        url:'' },
+  { id:'2048',    name:'2048',         url:'' },
+  { id:'tetris',  name:'Block Stack',  url:'' },
+  { id:'racer',   name:'Pixel Racer',  url:'' },
+];
+// These mirror the SQL function and are used for the demo mode and the on-screen text.
+// The real values are enforced in Code.gs.
+const CHECKIN_XP = 20, STREAK_STEP = 5, STREAK_MAX = 35, NEW_GAME_XP = 25, XP_PER_MIN = 2, DAILY_CAP = 300;
+const xpForLevel = n => 50 * n * (n - 1);                       // total XP to reach level n
+const levelFromXp = xp => Math.floor((1 + Math.sqrt(1 + xp / 12.5)) / 2);
+
+/* ================= STATE + STORAGE ================= */
+const $ = id => document.getElementById(id);
+const REMOTE = !!CONFIG.SHEET_URL;
+const LS = 'gamehub-v1';
+let me = load(), rows = [], range = 'week', session = null;
+
+function load(){ try { return JSON.parse(localStorage.getItem(LS)) || {}; } catch(e){ return {}; } }
+function save(){ try { localStorage.setItem(LS, JSON.stringify(me)); } catch(e){} }
+const todayStr = (off = 0) => new Date(Date.now() + off * 864e5).toISOString().slice(0,10);
+const weekKey = () => { const d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d.toISOString().slice(0,10); };
+
+/* ================= BACKEND ================= */
+// text/plain avoids a CORS preflight request, which Apps Script can't answer.
+async function call(fn, args = {}){
+  const r = await fetch(CONFIG.SHEET_URL, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+    body:JSON.stringify({ fn, id:me.id, secret:me.secret, ...args }) });
+  const j = await r.json();
+  if (!j.ok) throw new Error(j.error || 'Request failed');
+  return j.data;
+}
+
+const backend = {
+  async init(){
+    if (REMOTE){
+      me.played = me.played || [];
+      if (!me.id) return showAuth();
+      try { Object.assign(me, await call('me')); }
+      catch(e){ if (e.message === 'Unknown player'){ logout(); return; } throw e; }
+      bonusToast();
+    } else if (!me.id){
+      me = { id:'me', name:'', total:0, week:0, weekKey:weekKey(), streak:0, last_checkin:null, dayXp:0, dayKey:todayStr(), played:[] };
+      save();
+    }
+  },
+  async board(){
+    if (REMOTE){
+      const col = range === 'week' ? 'week' : 'total';
+      const r = await fetch(CONFIG.SHEET_URL);
+      const list = r.ok ? await r.json() : [];
+      return list.sort((a, b) => b[col] - a[col]).slice(0, 25);
+    }
+    if (me.weekKey !== weekKey()){ me.weekKey = weekKey(); me.week = 0; }
+    const bots = ['Mara','Jonas','Priya','Dex','Ingrid','Tomás','Yuki','Cleo'].map((n,i) =>
+      ({ id:'bot'+i, name:n, total:200 + i*277 % 1900, week:(i*83 + 40) % 300 }));
+    const all = [...bots, { id:me.id, name:me.name || 'You', total:me.total, week:me.week }];
+    return all.sort((a,b) => b[range === 'week' ? 'week' : 'total'] - a[range === 'week' ? 'week' : 'total']);
+  },
+  async award(kind, minutes = 0, gameId){
+    if (REMOTE) return call('award', { kind, minutes, gameId });
+    if (me.dayKey !== todayStr()){ me.dayKey = todayStr(); me.dayXp = 0; }
+    let amt;
+    if (kind === 'checkin'){
+      if (me.last_checkin === todayStr()) throw new Error('Already checked in today');
+      me.streak = me.last_checkin === todayStr(-1) ? me.streak + 1 : 1;
+      me.last_checkin = todayStr();
+      amt = CHECKIN_XP + Math.min((me.streak - 1) * STREAK_STEP, STREAK_MAX);
+    } else if (kind === 'play') amt = XP_PER_MIN * Math.min(minutes, 5);
+    else amt = NEW_GAME_XP;
+    amt = Math.min(amt, DAILY_CAP - me.dayXp);
+    if (amt <= 0) throw new Error('Daily XP limit reached');
+    me.dayXp += amt; me.total += amt; me.week += amt; save();
+    return { gained:amt, total:me.total, week:me.week, streak:me.streak, last_checkin:me.last_checkin };
+  },
+  async rename(name){ if (REMOTE) await call('rename', { name }); me.name = name; save(); }
+};
+
+/* ================= ACTIONS ================= */
+async function give(kind, minutes, gameId){
+  const before = levelFromXp(me.total || 0);
+  try {
+    const r = await backend.award(kind, minutes, gameId);
+    Object.assign(me, { total:r.total, week:r.week, streak:r.streak, last_checkin:r.last_checkin }); if (r.played) me.played = r.played; save();
+    if (session) { session.earned += r.gained; $('pXp').textContent = `+${session.earned} XP this session`; }
+    const after = levelFromXp(me.total);
+    if (r.gained > 0) toast(after > before ? `Level ${after}! +${r.gained} XP` : `+${r.gained} XP`);
+    render(); refreshBoard();
+  } catch(e){ toast(e.message); }
+}
+
+/* Play tracking: call GameHub.startPlaying(id) when a game opens and GameHub.stopPlaying() when it closes.
+   XP is awarded for each full minute the tab is visible. */
+function startPlaying(id){
+  stopPlaying();
+  session = { id, secs:0, earned:0, timer:setInterval(() => {
+    if (document.hidden || !session) return;
+    if (++session.secs % 60 === 0) give('play', 1);
+  }, 1000) };
+  if (!me.played.includes(id)){ if (!REMOTE){ me.played.push(id); save(); } give('newgame', 0, id); }
+}
+function stopPlaying(){ if (session){ clearInterval(session.timer); session = null; } }
+window.GameHub = { startPlaying, stopPlaying };
+
+function openGame(g){
+  $('pTitle').textContent = g.name;
+  $('pXp').textContent = '';
+  $('pBody').innerHTML = g.url ? '<iframe title=""></iframe>' : '<div class="demo"><p>Demo: your game loads here.<br>Set <code>url</code> for this game in GAMES to embed it.<br>XP is ticking while this is open.</p></div>';
+  if (g.url){ const f = $('pBody').firstChild; f.title = g.name; f.src = g.url; f.style.cssText = 'flex:1;border:0;width:100%'; }
+  $('play').classList.add('open');
+  $('pClose').focus();
+  startPlaying(g.id);
+}
+$('pClose').onclick = () => { stopPlaying(); $('play').classList.remove('open'); $('pBody').innerHTML = ''; };
+
+/* ================= RENDER ================= */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function render(){
+  $('nameRow').style.display = REMOTE ? 'none' : '';
+  $('acct').style.display = REMOTE && me.id ? 'flex' : 'none';
+  $('acctName').textContent = me.name || '';
+  const lvl = levelFromXp(me.total || 0), lo = xpForLevel(lvl), hi = xpForLevel(lvl + 1);
+  const pct = Math.round(((me.total || 0) - lo) / (hi - lo) * 100);
+  $('lvl').textContent = lvl;
+  $('fill').style.width = pct + '%';
+  document.querySelector('[role=progressbar]').setAttribute('aria-valuenow', pct);
+  $('xpText').textContent = `${(me.total || 0) - lo} / ${hi - lo} XP to level ${lvl + 1}`;
+  $('streak').textContent = me.streak ? `${me.streak}-day streak` : '';
+  const done = me.last_checkin === todayStr();
+  $('checkin').disabled = done;
+  $('ciXp').textContent = done ? 'Done today' : '+' + (CHECKIN_XP + Math.min(((me.streak || 0)) * STREAK_STEP, STREAK_MAX)) + ' XP';
+  if (document.activeElement !== $('name')) $('name').value = me.name || '';
+  $('mode').textContent = REMOTE ? '' : 'Demo mode: scores are saved only in this browser. Add your Sheet URL in CONFIG to share one leaderboard.';
+  $('games').innerHTML = '';
+  GAMES.forEach(g => {
+    const b = document.createElement('button');
+    b.innerHTML = `${esc(g.name)}<small>${me.played.includes(g.id) ? 'Played' : '+' + NEW_GAME_XP + ' XP first time'}</small>`;
+    b.onclick = () => openGame(g);
+    $('games').appendChild(b);
+  });
+  const key = range === 'week' ? 'week' : 'total';
+  $('board').innerHTML = rows.length ? rows.map((p,i) => `
+    <li class="row ${p.id === me.id ? 'me' : ''} ${i === 0 ? 'top1' : ''}">
+      <div class="rank">${i + 1}</div>
+      <div class="who"><strong>${esc(p.name)}${p.id === me.id ? ' (you)' : ''}</strong><span>Level ${levelFromXp(p.total)}</span></div>
+      <div class="pts">${p[key].toLocaleString()}<span>XP</span></div>
+    </li>`).join('') : '<li class="row"><div></div><div class="who">No players yet. Play a game to get on the board.</div></li>';
+}
+async function refreshBoard(){ rows = await backend.board(); render(); }
+
+let tt; function toast(m){ const t = $('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('show'), 2000); }
+
+document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => {
+  range = b.dataset.r;
+  document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
+  refreshBoard();
+});
+$('checkin').onclick = () => give('checkin');
+$('save').onclick = async () => {
+  const v = $('name').value.trim();
+  if (!v) return toast('Enter a name first');
+  await backend.rename(v); toast('Name saved'); refreshBoard();
+};
+
+/* ================= LOGIN ================= */
+function showAuth(msg){ $('auth').classList.add('open'); $('aErr').textContent = msg || ''; $('aName').focus(); }
+async function doAuth(kind){
+  $('aErr').textContent = '';
+  try {
+    const c = await call(kind, { name:$('aName').value.trim(), pin:$('aPin').value.trim() });
+    me = { id:c.id, secret:c.secret, played:[] }; save();
+    $('auth').classList.remove('open'); $('aPin').value = '';
+    await backend.init();
+    me.total = me.total || 0; me.week = me.week || 0; me.played = me.played || [];
+    render(); refreshBoard();
+  } catch(e){ $('aErr').textContent = e.message; }
+}
+function logout(){
+  me = { played:[] }; try { localStorage.removeItem(LS); } catch(e){}
+  stopPlaying(); $('play').classList.remove('open'); $('pBody').innerHTML = '';
+  render(); showAuth();
+}
+function bonusToast(){
+  if (me.bonus > 0 && me.bonusWeek && me.seenBonus !== me.bonusWeek){
+    me.seenBonus = me.bonusWeek; save();
+    setTimeout(() => toast(`Streak bonus: +${me.bonus} XP to start the new week`), 700);
+  }
+}
+$('aLogin').onclick = () => doAuth('login');
+$('aSignup').onclick = () => doAuth('signup');
+$('aPin').onkeydown = e => { if (e.key === 'Enter') doAuth('login'); };
+$('logout').onclick = logout;
+
+(async () => {
+  try { await backend.init(); } catch(e){ toast('Could not reach the leaderboard'); me.played = me.played || []; }
+  me.total = me.total || 0; me.week = me.week || 0; me.played = me.played || [];
+  render(); refreshBoard();
+  setInterval(refreshBoard, 30000);
+})();
+</script>
+</body>
+</html>
