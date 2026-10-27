@@ -22,8 +22,10 @@
 </style>
   </head>
  <!-- Paste this whole block right before </body> in index.html (and any other page you want it on). -->
-   html,body{background:transparent!important}
-   body::before{content:'';position:fixed;inset:0;z-index:-1;background:#12142a url('background.gif') center/cover no-repeat}<style>
+<style>
+html,body{background:transparent!important}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:#12142a url('background.gif') center/cover no-repeat}
+</style><style>
 #xpbar{position:fixed;top:12px;right:12px;z-index:50;font:14px/1.4 system-ui,-apple-system,'Segoe UI',sans-serif;
   --s:#fff;--ink:#161a2e;--mu:#6a7090;--ln:#dde0ec;--ac:#2f4bff;--acink:#fff;--xp:#ffb400;--bg:#eef0f6}
 @media(prefers-color-scheme:dark){#xpbar{--s:#1b1e3a;--ink:#eef0ff;--mu:#9298c0;--ln:#2c3055;--ac:#7c8dff;--acink:#10132c;--bg:#12142a}}
