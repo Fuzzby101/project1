@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project1 Launcher</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: #000;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    color: white;
+}
+
+#buttons {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 16px;
+}
+
+.launchCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.launch-btn {
+    padding: 25px 40px;
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    background: #444;
+    border: 2px solid #666;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.launch-btn:hover {
+    background: #555;
+    transform: scale(1.05);
+}
+
+.launch-btn.default {
+    border-color: #4ade80;
+    box-shadow: 0 0 16px rgba(74, 222, 128, .25);
+}
+
+.toggleGroup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #aaa;
+    font-size: 14px;
+    user-select: none;
+}
+
+.toggleGroup span.active {
+    color: #4ade80;
+    font-weight: bold;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+}
+
+.switch input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #555;
+    border-radius: 28px;
+    transition: .2s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: .2s;
+}
+
+.switch input:checked + .slider {
+    background: #4ade80;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(24px);
+}
+
+#hint {
+    color: #777;
+    font-size: 12.5px;
+    text-align: center;
+    padding: 0 16px;
+}
+
+#msg {
+    color: #e0a040;
+    font-size: 13px;
+    text-align: center;
+    max-width: 90%;
+}
+
+@media (max-width: 520px) {
+    #buttons {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .launch-btn {
+        width: min(300px, 85vw);
+        padding: 22px 20px;
+        font-size: 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="buttons">
+    <div class="launchCol">
+        <button id="openProject" class="launch-btn">
+            Open Cyanide
+        </button>
+
+        <label class="toggleGroup">
+            <span id="projectLabel"></span>
+            <span class="switch">
+                <input type="checkbox" id="projectToggle">
+                <span class="slider"></span>
+            </span>
+        </label>
+    </div>
+</div>
+
+<div id="hint">Enable the switch to auto-open on your next visit</div>
+<div id="msg" role="status"></div>
+
+<script>
+const SITE = "https://fuzzby101.github.io/project1/";
+const STORAGE_KEY = "project1_autolaunch";
+
+const button = document.getElementById("openProject");
+const toggle = document.getElementById("projectToggle");
+const label = document.getElementById("projectLabel");
+const msg = document.getElementById("msg");
+
+function getEnabled() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved === null ? false : saved === "true";
+    } catch {
+        return false;
+    }
+}
+
+function saveEnabled(value) {
+    try {
+        localStorage.setItem(STORAGE_KEY, String(value));
+    } catch {
+        msg.textContent = "Your browser could not save this setting.";
+    }
+}
+
+function updateUI() {
+    const enabled = toggle.checked;
+    label.classList.toggle("active", enabled);
+    button.classList.toggle("default", enabled);
+}
+
+function launchSite() {
+    // Open the site in a new tab.
+    // This avoids the iframe connection error.
+    const win = window.open("about:blank", "_blank");
+
+    if (!win) {
+        msg.textContent =
+            "Pop-up blocked. Allow pop-ups for this launcher and try again.";
+        return;
+    }
+
+    win.location.href = SITE;
+    msg.textContent = "";
+}
+
+toggle.checked = getEnabled();
+updateUI();
+
+toggle.addEventListener("change", () => {
+    saveEnabled(toggle.checked);
+    updateUI();
+
+    const original = label.textContent;
+    label.textContent = "Saved";
+
+    setTimeout(() => {
+        label.textContent = original;
+    }, 900);
+});
+
+button.addEventListener("click", launchSite);
+
+// Automatic pop-ups may be blocked by browsers.
+// Click the button if automatic launching does not work.
+window.addEventListener("load", () => {
+    if (getEnabled()) {
+        launchSite();
+    }
+});
+</script>
+
+</body>
+</html>
