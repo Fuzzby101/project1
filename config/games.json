@@ -301,3 +301,15 @@
     "new": true
   }
 ]
+  {
+    "name": "2048",
+    "image": "cyanide.png",
+    "url": "https://script.google.com/macros/s/AKfycbxJsz39zVVhGdQ2aNEzWAPR4pUYj1F-eyOwc9AYCflATORaPXLJ-mQ_hqdtGzJhQFOV/exec?game=1",
+    "new": true
+  },
+  {
+    "name": "Eaglercraft",
+    "image": "cyanide.png",
+    "url": "https://script.google.com/macros/s/AKfycbxJsz39zVVhGdQ2aNEzWAPR4pUYj1F-eyOwc9AYCflATORaPXLJ-mQ_hqdtGzJhQFOV/exec?game=2",
+    "new": true
+  }
