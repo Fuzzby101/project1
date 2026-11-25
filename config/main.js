@@ -13,7 +13,7 @@ function displayFilteredGames(filteredGames) {
     gameDiv.classList.add("game");
 
     const gameImage = document.createElement("img");
-    gameImage.src = `./${game.image}`;
+    gameImage.src = /^https?:\/\//.test(game.image) ? game.image : `./${game.image}`;
     gameImage.alt = game.name;
 
 gameImage.onclick = () => {
